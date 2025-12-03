@@ -1,0 +1,16 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Backups
+*.bak
+
+# Expo
+.expo/
+web-build/
