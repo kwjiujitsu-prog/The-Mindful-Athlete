@@ -11,6 +11,9 @@ __pycache__/
 # Backups
 *.bak
 
+# Large repo backup files
+mobile-app/mobile-app-backup.zip
+
 # Expo
 .expo/
 web-build/
