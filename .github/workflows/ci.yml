@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  typescript-check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [frontend, mobile-app]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        working-directory: ${{ matrix.app }}
+        run: npm ci
+      - name: TypeScript check
+        working-directory: ${{ matrix.app }}
+        run: npx tsc --noEmit
