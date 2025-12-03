@@ -66,9 +66,20 @@ If something is unclear
 - Ask whether `frontend` and `mobile-app` are intentionally separate apps or if one should be canonical.
 - Confirm whether `backend/` is still under development and whether there is a server entrypoint or `requirements.txt` to add.
 
+Large file handling (Git LFS)
+- The repository uses Git LFS to manage large files (`.gitattributes` configured for archives, media, binary assets).
+- Tracked file types: `*.zip`, `*.tar.gz`, `*.rar`, `*.7z`, `*.mp4`, `*.mov`, `*.mkv`, `*.wav`, `*.mp3`, `*.flac`, `*.psd`, `*.ai`, `*.exe`, `*.dll`, `*.so`, `*.dylib`.
+- Do not commit large binary backups directly into the repo; use Git LFS or external releases/storage.
+- To add new large file types: `git lfs track "*.newtype"` and commit `.gitattributes`.
+
+Repository maintenance performed by agent (Phase 2)
+- Purged large backup zip from `chore/repo-cleanup` branch history using `git-filter-repo`.
+- Configured Git LFS to track common large file types and added `.gitattributes`.
+- CI workflow (`.github/workflows/ci.yml`) runs TypeScript checks on `frontend` and `mobile-app` for all pushes and PRs.
+
 Next steps I can do
-- Add CI job templates to run per-app `npx tsc --noEmit` and `npm run build` if requested.
-- Normalize duplicated folders after confirmation from maintainers.
-- A GitHub Actions CI workflow was added at `./.github/workflows/ci.yml` to run TypeScript checks in both `frontend` and `mobile-app`.
+- Add CI job templates to run per-app `npm run build` or e2e tests if requested.
+- Set up Git LFS authentication and storage backend (currently using GitHub's included LFS storage).
+- Monitor and report CI results for the `chore/repo-cleanup` PR once it's created.
 
 -- End of generated guidance
